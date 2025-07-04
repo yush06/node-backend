@@ -1,5 +1,5 @@
 runtime: nodejs20
-service: api  # <-- VERY IMPORTANT!
+service: api  # <-- VERY IMPORTANT!.gitignore
 instance_class: F1  # lowest-cost instance for learning/testing
 automatic_scaling:
   target_cpu_utilization: 0.65
