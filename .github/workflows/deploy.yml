@@ -1,0 +1,36 @@
+name: Deploy to Google App Engine
+
+on:
+  push:
+    branches:
+      - main  # or your deploy branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    - name: Install Dependencies
+      run: npm ci
+
+    - name: Build Project
+      run: npm run build
+
+    - name: Authenticate to GCP
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+
+    - name: Deploy to App Engine
+      uses: google-github-actions/deploy-appengine@v1
+      with:
+        project_id: my-backend-464417
+        deliverables: app.yaml
